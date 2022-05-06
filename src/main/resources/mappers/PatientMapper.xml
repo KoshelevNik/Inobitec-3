@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="main.mapper.PatientMapper">
+    <resultMap id="patient" type="main.model.Patient">
+        <id property="id" column="id"/>
+        <result property="firstName" column="firstName"/>
+        <result property="midName" column="midName"/>
+        <result property="lastName" column="lastName"/>
+        <result property="genderId" column="genderId"/>
+        <result property="birthday" column="birthday"/>
+        <result property="phone" column="phone"/>
+        <result property="email" column="email"/>
+        <result property="address" column="address"/>
+    </resultMap>
+    <select id="selectAllPatients" resultMap="patient">
+        select
+        "id",
+        "firstName",
+        "midName",
+        "lastName",
+        "genderId",
+        "birthday",
+        "phone",
+        "email",
+        "address"
+        from "patient";
+    </select>
+    <insert id="insertPatient" parameterType="main.model.Patient">
+        <selectKey resultType="integer" keyProperty="id" order="BEFORE">
+            select nextval('patientId');
+        </selectKey>
+        insert into "patient" values (
+        #{id},
+        #{firstName},
+        #{midName},
+        #{lastName},
+        #{genderId},
+        #{birthday},
+        #{phone},
+        #{email},
+        #{address}
+        );
+    </insert>
+    <delete id="deletePatient">
+        delete from "patient" where "id"=#{id};
+    </delete>
+    <update id="updatePatient" parameterType="main.model.Patient">
+        update "patient" set
+        "firstName"=#{firstName},
+        "midName"=#{midName},
+        "lastName"=#{lastName},
+        "genderId"=#{genderId},
+        "birthday"=#{birthday},
+        "phone"=#{phone},
+        "email"=#{email},
+        "address"=#{address}
+        where "id"=#{id}
+    </update>
+    <select id="selectPatientById" resultMap="patient">
+        select
+        "id",
+        "firstName",
+        "midName",
+        "lastName",
+        "genderId",
+        "birthday",
+        "phone",
+        "email",
+        "address"
+        from "patient" where "id"=#{id};
+    </select>
+</mapper>
