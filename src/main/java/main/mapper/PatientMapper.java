@@ -1,16 +1,14 @@
 package main.mapper;
 
 import main.model.Patient;
-import org.apache.ibatis.annotations.MapKey;
 import org.apache.ibatis.annotations.Mapper;
 
-import java.util.Map;
+import java.util.List;
 
 @Mapper
 public interface PatientMapper {
 
-    @MapKey("id")
-    Map<Integer, Patient> selectAllPatients();
+    List<Patient> selectAllPatients();
 
     void insertPatient(Patient patient);
 

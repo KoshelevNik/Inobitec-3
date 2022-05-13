@@ -6,7 +6,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Map;
 
 @Service
 public class PatientService {
@@ -18,7 +17,7 @@ public class PatientService {
         patientRepository.insertPatient(patient);
     }
 
-    public Map<Integer, Patient> readAllPatients() {
+    public List<Patient> readAllPatients() {
         return patientRepository.selectAllPatients();
     }
 

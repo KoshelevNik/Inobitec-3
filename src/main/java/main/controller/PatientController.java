@@ -6,7 +6,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.Map;
 
 @RestController
 @RequestMapping("/patient")
@@ -21,7 +20,7 @@ public class PatientController {
     }
 
     @GetMapping
-    public Map<Integer, Patient> getAllPatient() {
+    public List<Patient> getAllPatient() {
         return patientService.readAllPatients();
     }
 

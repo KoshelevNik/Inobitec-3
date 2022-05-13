@@ -6,7 +6,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
-import java.util.Map;
 
 @Repository
 public class PatientRepository {
@@ -26,7 +25,7 @@ public class PatientRepository {
         patientMapper.updatePatient(patient);
     }
 
-    public Map<Integer, Patient> selectAllPatients() {
+    public List<Patient> selectAllPatients() {
         return patientMapper.selectAllPatients();
     }
 
