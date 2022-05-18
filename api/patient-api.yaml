@@ -1,0 +1,202 @@
+openapi: 3.0.0
+info:
+  title: Test Patient Microservice
+  version: 1.0.0
+  description: Patient microservice REST API v1.0
+servers:
+  - url: http://192.168.0.7:8081
+paths:
+  /patient:
+    post:
+      summary: Request for adding a new Patient
+      description: Creates a new patient with parameters are contained in the request body
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Patient'
+            example:
+              id: 10001
+              firstName: Алексей
+              midName: Алексеевич
+              lastName: Алексеев
+              password: '54321'
+              genderId: 1
+              birthday: '1978-12-12'
+              phone: +7(700)-700-70-70
+              email: alex@yandex.ru
+              address: Университетская пл. д. 1
+      responses:
+        '200':
+          description: A new patient has been successfully created (200 or 201)
+        '201':
+          description: A new patient has been successfully created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Patient'
+              example:
+                id: 777
+                patientId: 10001
+                date: '2025-06-10'
+                orderItems:
+                  - medicineServiceId: 15021
+                    orderId: 777
+                  - medicineServiceId: 64505
+                    orderId: 777
+                  - medicineServiceId: 94316
+                    orderId: 777
+                patient:
+                  id: 10001
+                  firstName: Алексей
+                  midName: Алексеевич
+                  lastName: Алексеев
+                  password: '54321'
+                  genderId: 1
+                  birthday: '1978-12-12'
+                  phone: +7(700)-700-70-70
+                  email: alex@yandex.ru
+                  address: Университетская пл. д. 1
+        '500':
+          description: Server error
+        '503':
+          description: Server unavailable
+    get:
+      summary: Get all patients
+      description: Returns array of patients
+      responses:
+        '200':
+          description: A successful response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Patient'
+              example:
+                - id: 10001
+                  firstName: Алексей
+                  midName: Алексеевич
+                  lastName: Алексеев
+                  password: '54321'
+                  genderId: 1
+                  birthday: '1978-12-12'
+                  phone: +7(700)-700-70-70
+                  email: alex@yandex.ru
+                  address: Университетская пл. д. 1
+                - id: 10001
+                  firstName: Алексей
+                  midName: Алексеевич
+                  lastName: Алексеев
+                  password: '54321'
+                  genderId: 1
+                  birthday: '1978-12-12'
+                  phone: +7(700)-700-70-70
+                  email: alex@yandex.ru
+                  address: Университетская пл. д. 1
+        '500':
+          description: Server error
+  /patient/{id}:
+    get:
+      summary: Get the Patient by id
+      description: Returns object by "id" or returns null
+      parameters:
+        - in: path
+          name: id
+          description: Numeric ID of the Patient object
+          required: true
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: A successful response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Patient'
+              example:
+                id: 10001
+                firstName: Алексей
+                midName: Алексеевич
+                lastName: Алексеев
+                password: '54321'
+                genderId: 1
+                birthday: '1978-12-12'
+                phone: +7(700)-700-70-70
+                email: alex@yandex.ru
+                address: Университетская пл. д. 1
+        '404':
+          description: A resource with requested ID not found
+        '500':
+          description: Server error
+        '503':
+          description: Server unavailable
+    put:
+      summary: Request for editing the Patient by id
+      description: Updates patient by id with parameters are contained in request body
+      parameters:
+        - in: path
+          name: id
+          description: Numeric ID of the Patient which has to be updated
+          required: true
+          schema:
+            type: integer
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Patient'
+            example:
+              id: 10001
+              firstName: Алексей
+              midName: Алексеевич
+              lastName: Алексеев
+              password: '54321'
+              genderId: 1
+              birthday: '1978-12-12'
+              phone: +7(700)-700-70-70
+              email: alex@yandex.ru
+              address: Университетская пл. д. 1
+      responses:
+        '200':
+          description: Patient has been updated successfully
+        '500':
+          description: Server error
+    delete:
+      summary: Request for removing the Patinet by id
+      description: Removes patient by id
+      parameters:
+        - in: path
+          name: id
+          description: Numeric ID of the Patinet object to be deleted
+          required: true
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: The Patinet has been deleted successfully
+        '500':
+          description: Server error
+components:
+  schemas:
+    Patient:
+      type: object
+      properties:
+        id:
+          type: integer
+        firstName:
+          type: string
+        midName:
+          type: string
+        lastName:
+          type: string
+        genderId:
+          type: integer
+        birthday:
+          type: string
+        phone:
+          type: string
+        email:
+          type: string
+        address:
+          type: string
